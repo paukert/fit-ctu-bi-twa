@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ employee.name }} | Accounts{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('styles/employee/account.css') }}">
+{% endblock %}
+
+{% block content %}
+	<h1>Accounts owned by {{ employee.name }}</h1>
+	{% if employee.accounts is empty %}
+		<p>No accounts yet</p>
+	{% else %}
+		<table>
+			<tr>
+				<th>Username</th>
+				<th>Expires</th>
+				<th>Action</th>
+			</tr>
+			{% for account in employee.accounts %}
+				<tr>
+					<td>{{ account.userIdentifier }}</td>
+					<td>{{ account.isPermanent ? 'never' : account.validTo | date('d. m. Y') }}</td>
+					<td>
+						{% if is_granted('edit_account', account) %}
+							<a href="{{ path('account_edit', { id: account.id }) }}" title="Edit account">Edit</a>
+						{% else %}
+							no action available
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% endif %}
+{% endblock %}

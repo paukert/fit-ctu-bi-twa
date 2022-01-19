@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ employee.name }} | Profile{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('styles/employee/detail.css') }}">
+{% endblock %}
+
+{% block content %}
+	<h1>{{ employee.name }}</h1>
+	{% if employee.imageFileName is empty %}
+		<img src="{{ asset('uploads/images/default.png') }}" alt="Profile picture" title="Profile picture" class="profile-picture">
+	{% else %}
+		<img src="{{ asset('uploads/images/' ~ employee.imageFileName) }}" alt="Profile picture" title="Profile picture" class="profile-picture">
+	{% endif %}
+	<section class="profile">
+		<section>
+			<h2>Roles:</h2>
+			<ul>
+				{% for role in employee.roles %}
+					<li><abbr title="{{ role.description }}">{{ role.title }}</abbr></li>
+				{% endfor %}
+			</ul>
+		</section>
+		<section>
+			<h2>Contact information:</h2>
+			<ul>
+				<li>E-mail: <a href="mailto:{{ employee.mail }}">{{ employee.mail | default('not available') }}</a></li>
+				<li>Phone: <a href="tel:{{ employee.phone | replace({' ':''}) }}">{{ employee.phone | default('not available') }}</a></li>
+				<li>Web: <a href="{{ employee.web | default('#') }}">{{ employee.web | default('not available') }}</a></li>
+			</ul>
+		</section>
+		<section>
+			<h2>Description:</h2>
+			<p>{{ employee.description | default('Not available') }}</p>
+		</section>
+	</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Search{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('styles/landing.css') }}">
+{% endblock %}
+
+{% block content %}
+	<form method="POST" action="{{ path('employee_list') }}">
+		<h1><label for="search">Search</label></h1>
+		<input type="search" name="search" id="search" placeholder="Enter name, contact information, role, ...">
+		<button type="submit" class="search">Search</button>
+	</form>
+{% endblock %}

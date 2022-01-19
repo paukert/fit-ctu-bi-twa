@@ -1,0 +1,47 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Search results{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('styles/employee/list.css') }}">
+{% endblock %}
+
+{% block content %}
+	<h1>Search results</h1>
+	<form method="POST" action="{{ path('employee_list') }}">
+		<label for="search">Search</label>
+		<input type="search" name="search" id="search" placeholder="Enter name, contact information, role, ...">
+		<button type="submit" class="search">Search</button>
+	</form>
+	{% if employees is empty %}
+		<p>No results</p>
+	{% endif %}
+	{% for employee in employees %}
+		<article class="search-result">
+			{% if employee.imageFileName is empty %}
+				<img src="{{ asset('uploads/images/default.png') }}" alt="Profile picture" title="Profile picture">
+			{% else %}
+				<img src="{{ asset('uploads/images/' ~ employee.imageFileName) }}" alt="Profile picture" title="Profile picture">
+			{% endif %}
+			<section>
+				{{ employee.name }}
+				<section>
+					{% for role in employee.roles %}
+						<abbr title="{{ role.description }}">{{ role.title }}</abbr>
+						{{ not loop.last ? "," }}
+					{% endfor %}
+				</section>
+				<a href="mailto:{{ employee.mail }}">{{ employee.mail }}</a>
+			</section>
+			<section>
+				{% if is_granted('edit_employee', employee) %}
+					<a href="{{ path('employee_edit', { id: employee.id }) }}">Edit</a> |
+				{% endif %}
+				{% if is_granted('view_employee', employee) %}
+					<a href="{{ path('employee_detail', { id: employee.id }) }}">Detail</a>
+				{% endif %}
+			</section>
+		</article>
+	{% endfor %}
+{% endblock %}

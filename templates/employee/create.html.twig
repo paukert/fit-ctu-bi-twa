@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Create employee{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('styles/edit.css') }}">
+{% endblock %}
+
+{% block content %}
+	<h1>Create employee</h1>
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	<button type="submit">Create employee</button>
+	{{ form_end(form) }}
+{% endblock %}

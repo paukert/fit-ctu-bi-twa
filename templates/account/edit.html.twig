@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ account.userIdentifier }} | Edit{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('styles/edit.css') }}">
+{% endblock %}
+
+{% block content %}
+	<h1>Edit account {{ account.userIdentifier }}</h1>
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	<button type="submit">Edit account</button>
+	{{ form_end(form) }}
+{% endblock %}

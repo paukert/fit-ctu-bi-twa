@@ -1,0 +1,92 @@
+body {
+	background-color: #f7f7f7;
+	color: #333333;
+	font-family: 'Open Sans', sans-serif;
+	margin: 0;
+	display: grid;
+	grid-template-areas:
+                'header'
+                'main'
+                'footer';
+	height: 100vh;
+	grid-template-rows: auto 1fr auto;
+}
+
+@media screen and (min-width: 900px) {
+	body {
+		grid-template-areas:
+                'header main'
+                'footer main';
+		grid-template-columns: 250px auto;
+		grid-template-rows: 1fr auto;
+	}
+
+	main {
+		overflow-y: scroll;
+	}
+}
+
+header {
+	grid-area: header;
+	color: #f7f7f7;
+	background-color: #0065bd;
+	font-size: 1.2em;
+}
+
+main {
+	grid-area: main;
+	padding: 20px 30px;
+}
+
+footer {
+	grid-area: footer;
+	color: #f7f7f7;
+	background-color: #0065bd;
+}
+
+h1 {
+	margin: 0 0 20px 0;
+	font-size: 2em;
+}
+
+h2 {
+	margin: 0 0 0.5em 0;
+	font-size: 1.5em;
+}
+
+ul {
+	margin: 0.5em 0 1.5em 0;
+}
+
+header > p, footer > p {
+	padding: 20px;
+	margin: 0;
+}
+
+#main-navigation > ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#main-navigation li > a {
+	color: #f7f7f7;
+	text-decoration: none;
+	display: block;
+	padding: 20px;
+}
+
+#main-navigation li > a:hover {
+	background-color: #0075bd;
+}
+
+input, textarea {
+	transition: all 0.3s ease-in-out;
+	outline: none;
+	border: 1px solid #cccccc;
+}
+
+input:focus, textarea:focus {
+	box-shadow: 0 0 5px #0065bd;
+	border: 1px solid #0065bd;
+}

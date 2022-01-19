@@ -1,0 +1,42 @@
+button {
+	margin: 1rem 0;
+	padding: 0.5rem 3rem;
+	font-size: 1rem;
+}
+
+input, select {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0.4rem 0.7rem;
+	margin: 0.25rem 0 0.8rem 0;
+	text-align: left;
+	font-size: 1rem;
+	color: #333333;
+}
+
+input {
+	border-radius: 0.25rem;
+}
+
+input[type='file'] {
+	border: none;
+	padding: 0;
+}
+
+input[type='checkbox'] {
+	width: auto;
+	margin: 0.2rem 0.5rem 0 0;
+	align-self: start;
+}
+
+/* Displaying errors */
+ul {
+	margin: 0.2em 0 0.2em 0;
+	color: #DD0000;
+}
+
+#employee_roles, #account_roles {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	margin: 0.25rem 0 0.8rem 0;
+}

@@ -1,0 +1,26 @@
+table {
+	border-collapse: collapse;
+	text-align: center;
+	margin: 0 auto;
+	width: 60vw;
+	max-width: 650px;
+}
+
+th, td {
+	border: 1px solid #d9d9d9;
+	padding: 5px;
+}
+
+th {
+	background: #e6e6e6;
+}
+
+td {
+	background: #ececec;
+}
+
+@media screen and (min-width: 900px) {
+	table {
+		margin: 0;
+	}
+}
