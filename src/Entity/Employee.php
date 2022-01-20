@@ -6,14 +6,13 @@ use App\Repository\EmployeeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation as Serialize;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EmployeeRepository::class)
  *
- * @ExclusionPolicy("none")
+ * @Serialize\ExclusionPolicy("none")
  */
 class Employee
 {
@@ -76,7 +75,7 @@ class Employee
 	/**
 	 * @ORM\OneToMany(targetEntity=Account::class, mappedBy="owner")
 	 *
-	 * @Exclude
+	 * @Serialize\Exclude
 	 */
 	private $accounts;
 
@@ -98,7 +97,7 @@ class Employee
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 *
-	 * @Exclude
+	 * @Serialize\Exclude
 	 */
 	private $imageFileName;
 

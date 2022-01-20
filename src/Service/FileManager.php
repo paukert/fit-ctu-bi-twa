@@ -23,7 +23,7 @@ class FileManager
 		$fileName = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $file->guessExtension();
 
 		try {
-			$file->move($this->getTargetDirectory(), $fileName);
+			$file->move($this->targetDirectory, $fileName);
 		} catch (FileException) {
 			$fileName = null;
 			// TODO ... handle exception if something happens during file upload <-- what else can I do?
@@ -35,11 +35,6 @@ class FileManager
 	public function delete(?string $file): void
 	{
 		if (!empty($file))
-			unlink($this->getTargetDirectory() . '/' . $file);
-	}
-
-	public function getTargetDirectory(): string
-	{
-		return $this->targetDirectory;
+			unlink($this->targetDirectory . '/' . $file);
 	}
 }

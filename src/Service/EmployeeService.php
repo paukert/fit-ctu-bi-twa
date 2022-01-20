@@ -40,6 +40,7 @@ class EmployeeService
 
 	/**
 	 * @param Employee $employee
+	 * @return void
 	 */
 	public function save(Employee $employee): void
 	{
@@ -49,6 +50,7 @@ class EmployeeService
 
 	/**
 	 * @param Employee $employee
+	 * @return void
 	 */
 	public function delete(Employee $employee): void
 	{

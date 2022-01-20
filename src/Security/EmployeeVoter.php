@@ -26,12 +26,9 @@ class EmployeeVoter extends Voter
 	 */
 	protected function supports(string $attribute, $subject): bool
 	{
-		if (!in_array($attribute, [self::EDIT_EMPLOYEE, self::VIEW_EMPLOYEE, self::VIEW_EMPLOYEES_ACCOUNTS]))
+		if (!in_array($attribute, [self::EDIT_EMPLOYEE, self::VIEW_EMPLOYEE, self::VIEW_EMPLOYEES_ACCOUNTS]) ||
+			!$subject instanceof Employee)
 			return false;
-
-		if (!$subject instanceof Employee)
-			return false;
-
 		return true;
 	}
 
@@ -62,9 +59,8 @@ class EmployeeVoter extends Voter
 
 	private function canEditEmployee(Employee $employee, Account $loggedInAccount): bool
 	{
-		return
-			($employee === $loggedInAccount->getOwner() && $loggedInAccount->isPermanent()) ||
-			$this->security->isGranted('ROLE_ADMIN');
+		return ($employee === $loggedInAccount->getOwner() && $loggedInAccount->isPermanent()) ||
+				$this->security->isGranted('ROLE_ADMIN');
 	}
 
 	private function canViewEmployee(): bool
@@ -74,8 +70,7 @@ class EmployeeVoter extends Voter
 
 	private function canViewEmployeesAccounts(Employee $employee, Account $loggedInAccount): bool
 	{
-		return
-			($employee === $loggedInAccount->getOwner() && $loggedInAccount->isPermanent()) ||
-			$this->security->isGranted('ROLE_ADMIN');
+		return ($employee === $loggedInAccount->getOwner() && $loggedInAccount->isPermanent()) ||
+				$this->security->isGranted('ROLE_ADMIN');
 	}
 }

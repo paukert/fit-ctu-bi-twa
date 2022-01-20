@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\AccountRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation as Serialize;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=AccountRepository::class)
  *
- * @ExclusionPolicy("none")
+ * @Serialize\ExclusionPolicy("none")
  */
 class Account implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -30,7 +30,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 	 * @Assert\NotBlank
 	 * @Assert\Length(
 	 *     min=3,
-	 *     max=255,
+	 *     max=180,
 	 *     minMessage = "Username must be at least {{ limit }} characters long",
 	 *     maxMessage = "Username cannot be longer than {{ limit }} characters")
 	 */
@@ -39,7 +39,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 	/**
 	 * @ORM\Column(type="json")
 	 *
-	 * @Exclude
+	 * @Serialize\Exclude
 	 */
 	private $roles = [];
 
@@ -49,7 +49,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 	 *
 	 * @Assert\NotBlank
 	 *
-	 * @Exclude
+	 * @Serialize\Exclude
 	 */
 	private $password;
 
@@ -57,7 +57,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 	 * @ORM\ManyToOne(targetEntity=Employee::class, inversedBy="accounts")
 	 * @ORM\JoinColumn(nullable=false)
 	 *
-	 * @Exclude
+	 * @Serialize\Exclude
 	 */
 	private $owner;
 
@@ -169,12 +169,12 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 		return $this;
 	}
 
-	public function getValidTo(): ?\DateTimeInterface
+	public function getValidTo(): ?DateTimeInterface
 	{
 		return $this->validTo;
 	}
 
-	public function setValidTo(?\DateTimeInterface $validTo): self
+	public function setValidTo(?DateTimeInterface $validTo): self
 	{
 		$this->validTo = $validTo;
 

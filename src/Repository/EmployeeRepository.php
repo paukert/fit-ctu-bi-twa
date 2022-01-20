@@ -43,16 +43,4 @@ class EmployeeRepository extends ServiceEntityRepository
 			->getQuery()
 			->getResult();
 	}
-
-	/*
-	public function findOneBySomeField($value): ?Employee
-	{
-		return $this->createQueryBuilder('e')
-			->andWhere('e.exampleField = :val')
-			->setParameter('val', $value)
-			->getQuery()
-			->getOneOrNullResult()
-		;
-	}
-	*/
 }

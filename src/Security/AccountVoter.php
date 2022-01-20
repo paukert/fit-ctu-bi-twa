@@ -24,12 +24,9 @@ class AccountVoter extends Voter
 	 */
 	protected function supports(string $attribute, $subject): bool
 	{
-		if (!in_array($attribute, [self::EDIT_ACCOUNT, self::VIEW_ACCOUNT]))
+		if (!in_array($attribute, [self::EDIT_ACCOUNT, self::VIEW_ACCOUNT]) ||
+			!$subject instanceof Account)
 			return false;
-
-		if (!$subject instanceof Account)
-			return false;
-
 		return true;
 	}
 

@@ -6,14 +6,13 @@ use App\Repository\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation as Serialize;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RoleRepository::class)
  *
- * @ExclusionPolicy("none")
+ * @Serialize\ExclusionPolicy("none")
  */
 class Role
 {
@@ -49,7 +48,7 @@ class Role
 	/**
 	 * @ORM\ManyToMany(targetEntity=Employee::class, mappedBy="roles")
 	 *
-	 * @Exclude
+	 * @Serialize\Exclude
 	 */
 	private $employees;
 
@@ -57,7 +56,7 @@ class Role
 	 * @ORM\Column(type="boolean")
 	 * @Assert\Type(type="bool")
 	 *
-	 * @Exclude
+	 * @Serialize\Exclude
 	 */
 	private $isVisible;
 
