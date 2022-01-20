@@ -12,9 +12,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class AccountController
- * @package App\Controller
- *
  * @Route("/account")
  */
 class AccountController extends AbstractController

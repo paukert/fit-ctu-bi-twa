@@ -28,36 +28,38 @@ class EmployeeRestController extends AbstractFOSRestController
 
 	/**
 	 * @Route("/employees", methods={"GET"})
+	 *
+	 * @return Response
 	 */
 	public function getAllEmployees(): Response
 	{
 		$employees = $this->employeeService->getAll();
-		$view = $this->view($employees, 200);
-
+		$view = $this->view($employees, Response::HTTP_OK);
 		return $this->handleView($view);
 	}
 
 	/**
 	 * @Route("/employees/{id}", requirements={"id": "\d+"}, methods={"GET"})
+	 *
+	 * @param Employee $employee
+	 * @return Response
 	 */
-	public function getEmployee(int $id): Response
+	public function getEmployee(Employee $employee): Response
 	{
-		$employee = $this->employeeService->getById($id);
-		$view = $this->view($employee, ($employee ? 200 : 404));
-
+		$view = $this->view($employee, Response::HTTP_OK);
 		return $this->handleView($view);
 	}
 
 	/**
 	 * @Route("/employees/{id}", requirements={"id": "\d+"}, methods={"DELETE"})
+	 *
+	 * @param Employee $employee
+	 * @return Response
 	 */
-	public function deleteEmployee(int $id): Response
+	public function deleteEmployee(Employee $employee): Response
 	{
-		$employee = $this->employeeService->getById($id);
-		if ($employee)
-			$this->employeeService->delete($employee);
-
-		$view = $this->view($employee, ($employee ? 200 : 404));
+		$this->employeeService->delete($employee);
+		$view = $this->view($employee, Response::HTTP_OK);
 		return $this->handleView($view);
 	}
 
@@ -66,23 +68,19 @@ class EmployeeRestController extends AbstractFOSRestController
 	 *
 	 * @RequestParam(name="firstName")
 	 * @RequestParam(name="lastName")
+	 *
+	 * @param Employee $employee
+	 * @param Request $request
+	 * @return Response
 	 */
-	public function editEmployee(int $id, Request $request): Response
+	public function editEmployee(Employee $employee, Request $request): Response
 	{
-		$employee = $this->employeeService->getById($id);
-		if (!$employee) {
-			$view = $this->view(null, 404);
-			return $this->handleView($view);
-		}
-
-		if (!$this->processEmployee($employee, $request)) {
-			$view = $this->view($request->request->all(), 400);
-			return $this->handleView($view);
-		}
+		if (!$this->processEmployee($employee, $request))
+			return $this->handleView($this->view($request->request->all(), Response::HTTP_BAD_REQUEST));
 
 		$this->employeeService->save($employee);
+		$view = $this->view($employee, Response::HTTP_OK);
 
-		$view = $this->view($employee, 200);
 		return $this->handleView($view);
 	}
 
@@ -91,19 +89,20 @@ class EmployeeRestController extends AbstractFOSRestController
 	 *
 	 * @RequestParam(name="firstName")
 	 * @RequestParam(name="lastName")
+	 *
+	 * @param Request $request
+	 * @return Response
 	 */
 	public function createEmployee(Request $request): Response
 	{
 		$employee = new Employee();
 
-		if (!$this->processEmployee($employee, $request)) {
-			$view = $this->view($request->request->all(), 400);
-			return $this->handleView($view);
-		}
+		if (!$this->processEmployee($employee, $request))
+			return $this->handleView($this->view($request->request->all(), Response::HTTP_BAD_REQUEST));
 
 		$this->employeeService->save($employee);
+		$view = $this->view($employee, Response::HTTP_CREATED);
 
-		$view = $this->view($employee, 201);
 		return $this->handleView($view);
 	}
 

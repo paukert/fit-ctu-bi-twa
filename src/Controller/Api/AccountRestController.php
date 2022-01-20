@@ -2,8 +2,7 @@
 
 namespace App\Controller\Api;
 
-use App\Service\AccountService;
-use App\Service\EmployeeService;
+use App\Entity\Employee;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,32 +12,16 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AccountRestController extends AbstractFOSRestController
 {
-	private AccountService $accountService;
-	private EmployeeService $employeeService;
-
-	/**
-	 * @param AccountService $accountService
-	 * @param EmployeeService $employeeService
-	 */
-	public function __construct(AccountService $accountService, EmployeeService $employeeService)
-	{
-		$this->accountService = $accountService;
-		$this->employeeService = $employeeService;
-	}
-
 	/**
 	 * @Route("/employees/{id}/accounts", requirements={"id": "\d+"}, methods={"GET"})
+	 *
+	 * @param Employee $employee
+	 * @return Response
 	 */
-	public function getEmployeeAccounts(int $id): Response
+	public function getEmployeeAccounts(Employee $employee): Response
 	{
-		$employee = $this->employeeService->getById($id);
-		if (!$employee) {
-			$view = $this->view(null, 404);
-			return $this->handleView($view);
-		}
-
-		$accounts = $this->accountService->getByOwner($id);
-		$view = $this->view($accounts, 200);
+		$accounts = $employee->getAccounts();
+		$view = $this->view($accounts, Response::HTTP_OK);
 
 		return $this->handleView($view);
 	}

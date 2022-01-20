@@ -16,9 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class EmployeeController
- * @package App\Controller
- *
  * @Route("/employee")
  */
 class EmployeeController extends AbstractController
@@ -41,23 +38,20 @@ class EmployeeController extends AbstractController
 	 */
 	public function listEmployees(Request $request): Response
 	{
-		$search = $request->request->get('search', '');
+		$term = $request->request->get('search', '');
 		return $this->render('employee/list.html.twig', [
-			'employees' => $this->employeeService->getByAnything($search),
+			'employees' => $this->employeeService->getByAnything($term),
 		]);
 	}
 
 	/**
 	 * @Route("/{id}", name="employee_detail", requirements={"id": "\d+"})
 	 *
-	 * @param int $id
+	 * @param Employee $employee
 	 * @return Response
 	 */
-	public function showEmployeeDetail(int $id): Response
+	public function showEmployeeDetail(Employee $employee): Response
 	{
-		if (($employee = $this->employeeService->getById($id)) === null)
-			throw $this->createNotFoundException();
-
 		$this->denyAccessUnlessGranted('view_employee', $employee);
 
 		return $this->render('employee/detail.html.twig', [
@@ -68,14 +62,11 @@ class EmployeeController extends AbstractController
 	/**
 	 * @Route("/{id}/account", name="employee_account", requirements={"id": "\d+"})
 	 *
-	 * @param int $id
+	 * @param Employee $employee
 	 * @return Response
 	 */
-	public function listEmployeesAccounts(int $id): Response
+	public function listEmployeesAccounts(Employee $employee): Response
 	{
-		if (($employee = $this->employeeService->getById($id)) === null)
-			throw $this->createNotFoundException();
-
 		$this->denyAccessUnlessGranted('view_employees_accounts', $employee);
 
 		return $this->render('employee/account.html.twig', [
@@ -117,7 +108,7 @@ class EmployeeController extends AbstractController
 				}
 			}
 
-			$this->employeeService->save($form->getData());
+			$this->employeeService->save($employee);
 			return $this->redirectToRoute('employee_detail', ['id' => $employee->getId()]);
 		}
 
