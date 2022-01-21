@@ -38,8 +38,8 @@ class EmployeeRepository extends ServiceEntityRepository
 						r.title LIKE :val OR
 						r.description LIKE :val')
 			->setParameter('val', '%' . $query . '%')
-			->orderBy('e.lastName', 'ASC')
-			->orderBy('e.firstName', 'ASC')
+			->addOrderBy('e.lastName', 'ASC')
+			->addOrderBy('e.firstName', 'ASC')
 			->getQuery()
 			->getResult();
 	}

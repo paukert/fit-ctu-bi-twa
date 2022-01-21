@@ -1,5 +1,5 @@
 # Employee record keeping application
-Small web application with few API endpoints created in subject BI-TWA.
+Small web application with few API endpoints created in subject BI-TWA (Web Application Design) at FIT CTU.
 
 ## Build setup
 1. Download and install [PHP](https://www.php.net/downloads) and [composer](https://getcomposer.org/download/)

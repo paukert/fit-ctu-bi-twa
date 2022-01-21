@@ -139,7 +139,7 @@ class Employee
 
 	public function getName(): string
 	{
-		return $this->getFirstName() . ' ' . $this->getLastName();
+		return $this->getLastName() . ' ' . $this->getFirstName();
 	}
 
 	public function getMail(): ?string

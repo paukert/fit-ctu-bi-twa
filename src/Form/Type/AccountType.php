@@ -37,7 +37,7 @@ class AccountType extends AbstractType
 						->addOrderBy('employee.firstName', 'ASC');
 				},
 				'choice_label' => function (Employee $employee) {
-					return $employee->getLastName() . ' ' . $employee->getFirstName();
+					return $employee->getName();
 				}
 			])
 			->add('validTo', DateType::class, [

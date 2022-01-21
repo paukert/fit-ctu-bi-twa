@@ -57,7 +57,6 @@ class AccountController extends AbstractController
 			$account->setPassword($hashedPassword);
 
 			$this->accountService->save($account);
-
 			return $this->redirectToRoute('employee_account', ['id' => $account->getOwner()->getId()]);
 		}
 

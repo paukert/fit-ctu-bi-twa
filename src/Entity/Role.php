@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=RoleRepository::class)
  *
  * @Serialize\ExclusionPolicy("none")
+ * @Serialize\Exclude(if="!object.getIsVisible()")
  */
 class Role
 {

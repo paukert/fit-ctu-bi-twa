@@ -32,7 +32,7 @@
 						{{ not loop.last ? "," }}
 					{% endfor %}
 				</section>
-				<a href="mailto:{{ employee.mail }}">{{ employee.mail }}</a>
+				<a href="mailto:{{ employee.mail }}">{{ employee.mail | default('not available') }}</a>
 			</section>
 			<section>
 				{% if is_granted('edit_employee', employee) %}

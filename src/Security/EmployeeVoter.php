@@ -26,10 +26,8 @@ class EmployeeVoter extends Voter
 	 */
 	protected function supports(string $attribute, $subject): bool
 	{
-		if (!in_array($attribute, [self::EDIT_EMPLOYEE, self::VIEW_EMPLOYEE, self::VIEW_EMPLOYEES_ACCOUNTS]) ||
-			!$subject instanceof Employee)
-			return false;
-		return true;
+		return in_array($attribute, [self::EDIT_EMPLOYEE, self::VIEW_EMPLOYEE, self::VIEW_EMPLOYEES_ACCOUNTS]) &&
+				$subject instanceof Employee;
 	}
 
 	/**
